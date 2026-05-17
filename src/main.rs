@@ -6,6 +6,7 @@ mod engine;
 mod liquidator;
 mod market;
 mod position;
+mod scanner;
 
 fn main() {
     let engine = Arc::new((Mutex::new(RiskEngine::new()), Condvar::new()));

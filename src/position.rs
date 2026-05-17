@@ -4,7 +4,7 @@ pub enum Side {
     SHORT,
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy,PartialEq)]
 pub enum PositionState {
     OPEN,
     LIQUIDATING,
