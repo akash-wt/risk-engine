@@ -7,7 +7,6 @@ pub async fn feed(engine: Arc<(Mutex<RiskEngine>, Condvar, Condvar)>) {
     let (lock, price_cond, _) = &*engine;
 
     let (socket, _) = connect_async("wss://hermes.pyth.network/ws").await.unwrap();
-    println!("{:?}", socket);
     let (mut write, mut read) = socket.split();
     write
         .send(Message::Text(

@@ -34,10 +34,10 @@ fn main() {
     engine.engine_add_market(sol_prep);
 
     let pos = Position {
-        entry_prcie: 200,
+        entry_prcie: 2_000_000,
         size: 10,
         margin: 100,
-        liquidation_price: 180,
+        liquidation_price: 1_800_000,
         trade_id: [0u8; 32],
         market_index: 0,
         open_at: 0,
@@ -46,7 +46,7 @@ fn main() {
     };
 
     engine.engine_add_position(pos);
-    
+
     let engine = Arc::new((Mutex::new(engine), Condvar::new(), Condvar::new()));
 
     let e1 = Arc::clone(&engine);
