@@ -5,7 +5,7 @@ pub enum Side {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub enum State {
+pub enum PositionState {
     OPEN,
     LIQUIDATING,
     CLOSED,
@@ -20,6 +20,6 @@ pub struct Position {
     pub trade_id: [u8; 32],
     pub market_index: u32,
     pub open_at: u64,
-    pub state: State,
+    pub state: PositionState,
     pub side: Side,
 }

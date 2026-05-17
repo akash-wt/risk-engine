@@ -3,6 +3,7 @@ use crate::position::Position;
 use crate::position::Side;
 use std::sync::Condvar;
 use std::sync::Mutex;
+use std::collections::VecDeque;
 
 #[derive(Debug)]
 pub struct RiskEngine {
@@ -16,7 +17,7 @@ pub struct RiskEngine {
     pub market_count: u32,
     pub market_cap: u32,
 
-    pub liq_queue: Vec<u32>,
+    pub liq_queue: VecDeque<u32>,
     pub liq_queue_count: u32,
     pub liq_queue_cap: u32,
 
@@ -36,7 +37,7 @@ impl RiskEngine {
             market_count: 0,
             market_cap: 64,
 
-            liq_queue: Vec::with_capacity(256),
+            liq_queue: VecDeque::with_capacity(256),
             liq_queue_count: 0,
             liq_queue_cap: 256,
             lock: Mutex::new(()),
