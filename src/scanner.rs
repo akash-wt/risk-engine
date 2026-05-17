@@ -2,12 +2,12 @@ use crate::position::PositionState;
 use crate::{engine::RiskEngine, position::PositionSide};
 use std::sync::{Arc, Condvar, Mutex};
 
-pub fn scanner(engine: Arc<(Mutex<RiskEngine>, Condvar)>) {
-    let (lock, cond) = &*engine;
+pub fn scanner(engine: Arc<(Mutex<RiskEngine>, Condvar,Condvar)>) {
+    let (lock, price_cond,liq_cond) = &*engine;
 
     loop {
         let mut eng = lock.lock().unwrap();
-        eng = cond.wait(eng).unwrap();
+        eng = price_cond.wait(eng).unwrap();
 
         for i in 0..eng.positions.len() {
             // skip non - open positions

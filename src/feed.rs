@@ -3,12 +3,12 @@ use futures_util::{SinkExt, StreamExt};
 use std::sync::{Arc, Condvar, Mutex};
 use tokio_tungstenite::{connect_async, tungstenite::Message};
 
-pub async fn feed(engine: Arc<(Mutex<RiskEngine>, Condvar)>) {
-    let (lock, cond) = &*engine;
+pub async fn feed(engine: Arc<(Mutex<RiskEngine>, Condvar, Condvar)>) {
+    let (lock, price_cond, _) = &*engine;
 
     let (socket, _) = connect_async("wss://hermes.pyth.network/ws").await.unwrap();
+    println!("{:?}", socket);
     let (mut write, mut read) = socket.split();
-
     write
         .send(Message::Text(
             r#"{
@@ -43,7 +43,7 @@ pub async fn feed(engine: Arc<(Mutex<RiskEngine>, Condvar)>) {
             eng.markets[0].market_price = mark_price;
             drop(eng);
 
-            cond.notify_one();
+            price_cond.notify_one();
             println!(
                 "SOL mark_price: ${}.{:04}",
                 mark_price / 10000,

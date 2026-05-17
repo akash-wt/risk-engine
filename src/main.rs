@@ -46,8 +46,9 @@ fn main() {
     };
 
     engine.engine_add_position(pos);
+    
+    let engine = Arc::new((Mutex::new(engine), Condvar::new(), Condvar::new()));
 
-    let engine = Arc::new((Mutex::new(engine), Condvar::new()));
     let e1 = Arc::clone(&engine);
     let e2 = Arc::clone(&engine);
     let e3 = Arc::clone(&engine);
