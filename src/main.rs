@@ -1,3 +1,4 @@
+use crate::feed::feed;
 use crate::liquidator::liquidator;
 use crate::market::{Market, MarketConfig};
 use crate::scanner::scanner;
@@ -8,11 +9,11 @@ use std::{
 };
 
 mod engine;
+mod feed;
 mod liquidator;
 mod market;
 mod position;
 mod scanner;
-mod feed;
 
 fn main() {
     let mut engine = RiskEngine::new();
@@ -46,15 +47,18 @@ fn main() {
 
     engine.engine_add_position(pos);
 
-    let engine = Arc::new((Mutex::new(RiskEngine::new()), Condvar::new()));
+    let engine = Arc::new((Mutex::new(engine), Condvar::new()));
     let e1 = Arc::clone(&engine);
     let e2 = Arc::clone(&engine);
     let e3 = Arc::clone(&engine);
 
     let liquidator_thread = thread::spawn(move || liquidator(e1));
     let scanner_thread = thread::spawn(move || scanner(e2));
-
+    let feed_thread = thread::spawn(move || {
+        tokio::runtime::Runtime::new().unwrap().block_on(feed(e3));
+    });
 
     liquidator_thread.join().unwrap();
     scanner_thread.join().unwrap();
+    feed_thread.join().unwrap();
 }
