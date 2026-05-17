@@ -1,5 +1,5 @@
 #[derive(Debug, Clone, Copy)]
-pub enum Side {
+pub enum PositionSide {
     LONG,
     SHORT,
 }
@@ -21,5 +21,5 @@ pub struct Position {
     pub market_index: u32,
     pub open_at: u64,
     pub state: PositionState,
-    pub side: Side,
+    pub side: PositionSide,
 }

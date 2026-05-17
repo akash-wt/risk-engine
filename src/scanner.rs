@@ -1,5 +1,5 @@
 use crate::position::PositionState;
-use crate::{engine::RiskEngine, position::Side};
+use crate::{engine::RiskEngine, position::PositionSide};
 use std::sync::{Arc, Condvar, Mutex};
 
 pub fn scanner(engine: Arc<(Mutex<RiskEngine>, Condvar)>) {
@@ -20,8 +20,8 @@ pub fn scanner(engine: Arc<(Mutex<RiskEngine>, Condvar)>) {
                 let market = &eng.markets[pos.market_index as usize];
 
                 match pos.side {
-                    Side::LONG => market.market_price <= pos.liquidation_price,
-                    Side::SHORT => market.market_price >= pos.liquidation_price,
+                    PositionSide::LONG => market.market_price <= pos.liquidation_price,
+                    PositionSide::SHORT => market.market_price >= pos.liquidation_price,
                 }
             };
 

@@ -1,6 +1,6 @@
 use crate::market::Market;
 use crate::position::Position;
-use crate::position::Side;
+use crate::position::PositionSide;
 use std::sync::Condvar;
 use std::sync::Mutex;
 use std::collections::VecDeque;
@@ -58,8 +58,8 @@ impl RiskEngine {
 
         let market = &mut self.markets[market_index as usize];
         match side {
-            Side::LONG => market.long_open_intrest += size,
-            Side::SHORT => market.short_open_intrest += size,
+            PositionSide::LONG => market.long_open_intrest += size,
+            PositionSide::SHORT => market.short_open_intrest += size,
         }
     }
     pub fn engine_add_market(&mut self, market: Market) {

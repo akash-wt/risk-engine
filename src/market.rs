@@ -1,8 +1,9 @@
 #[derive(Debug, Clone)]
-struct MarketConfig {
+pub struct MarketConfig {
     pub market_index: u32,
     pub initial_margin_rate: u64,
     pub maintenance_margin_rate: u64,
+    pub max_leverage: u64
 }
 
 #[derive(Debug, Clone)]
