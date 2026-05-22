@@ -15,6 +15,7 @@ mod market;
 mod position;
 mod scanner;
 mod fund_rate;
+mod liquidate;
 fn main() {
     let mut engine = RiskEngine::new();
 
