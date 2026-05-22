@@ -12,7 +12,6 @@ mod engine;
 mod feed;
 mod liquidator;
 mod market;
-mod position;
 mod scanner;
 mod v1;
 
