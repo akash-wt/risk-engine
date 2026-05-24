@@ -11,8 +11,6 @@ pub fn is_liquidatable(position: Position, market: Market) -> bool {
     // Used to calculate unrealized PnL and position size.
     let entry_price: f32 = 20.0;
 
-  
-
     let leverage: f32 = 0.5;
 
     let market_price: f32 = 2.0;
