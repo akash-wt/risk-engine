@@ -3,11 +3,13 @@ pub struct MarketConfig {
     pub market_index: u32,
     pub initial_margin_rate: u64,
     pub maintenance_margin_rate: u64,
-    pub max_leverage: u64
+    pub max_leverage: u64,
 }
 
 #[derive(Debug, Clone)]
 pub struct Market {
+    // Current market price of the asset (from oracle/price feed).
+    // Used to calculate unrealized PnL in real time.
     pub market_price: u64,
     pub long_open_intrest: u64,
     pub short_open_intrest: u64,
